@@ -466,18 +466,16 @@ checksum = "debc29dde2e69f9e47506b525f639ed42300fc014a3e007832592448fa8e4599"
 
 [[package]]
 name = "attohttpc"
-version = "0.19.1"
+version = "0.22.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "262c3f7f5d61249d8c00e5546e2685cd15ebeeb1bc0f3cc5449350a1cb07319e"
+checksum = "1fcf00bc6d5abb29b5f97e3c61a90b6d3caa12f3faf897d4a3e3607c050a35a7"
 dependencies = [
  "http",
  "log",
  "native-tls",
- "openssl",
  "serde",
  "serde_json",
  "url",
- "wildmatch",
 ]
 
 [[package]]
@@ -499,15 +497,16 @@ checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
 
 [[package]]
 name = "aws-creds"
-version = "0.30.0"
+version = "0.34.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5aeeee1a5defa63cba39097a510dfe63ef53658fc8995202a610f6a8a4d03639"
+checksum = "3776743bb68d4ad02ba30ba8f64373f1be4e082fe47651767171ce75bb2f6cf5"
 dependencies = [
  "attohttpc",
  "dirs",
+ "log",
+ "quick-xml",
  "rust-ini",
  "serde",
- "serde-xml-rs",
  "thiserror",
  "time 0.3.17",
  "url",
@@ -1114,6 +1113,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "futures"
+version = "0.3.25"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "38390104763dc37a5145a53c29c63c1290b5d316d6086ec32c293f6736051bb0"
+dependencies = [
+ "futures-channel",
+ "futures-core",
+ "futures-executor",
+ "futures-io",
+ "futures-sink",
+ "futures-task",
+ "futures-util",
+]
+
+[[package]]
 name = "futures-channel"
 version = "0.3.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1128,6 +1142,17 @@ name = "futures-core"
 version = "0.3.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "04909a7a7e4633ae6c4a9ab280aeb86da1236243a77b694a49eacd659a4bd3ac"
+
+[[package]]
+name = "futures-executor"
+version = "0.3.25"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7acc85df6714c176ab5edf386123fafe217be88c0840ec11f199441134a074e2"
+dependencies = [
+ "futures-core",
+ "futures-task",
+ "futures-util",
+]
 
 [[package]]
 name = "futures-intrusive"
@@ -1190,6 +1215,7 @@ version = "0.3.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "197676987abd2f9cadff84926f410af1c183608d36641465df73ae8211dc65d6"
 dependencies = [
+ "futures-channel",
  "futures-core",
  "futures-io",
  "futures-macro",
@@ -2198,6 +2224,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "quick-xml"
+version = "0.26.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f50b1c63b38611e7d4d7f68b82d3ad0cc71a2ad2e7f61fc10f1328d917c93cd"
+dependencies = [
+ "memchr",
+ "serde",
+]
+
+[[package]]
 name = "quote"
 version = "1.0.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2400,15 +2436,17 @@ dependencies = [
 
 [[package]]
 name = "rust-s3"
-version = "0.32.3"
+version = "0.33.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b6009d9d4cf910505534d62d380a0aa305805a2af0b5c3ad59a3024a0715b847"
+checksum = "1b2ac5ff6acfbe74226fa701b5ef793aaa054055c13ebb7060ad36942956e027"
 dependencies = [
  "async-trait",
  "aws-creds",
  "aws-region",
  "base64 0.13.1",
+ "bytes",
  "cfg-if",
+ "futures",
  "hex",
  "hmac",
  "http",
@@ -2417,9 +2455,9 @@ dependencies = [
  "md5",
  "minidom",
  "percent-encoding",
+ "quick-xml",
  "reqwest",
  "serde",
- "serde-xml-rs",
  "serde_derive",
  "sha2",
  "thiserror",
@@ -2592,18 +2630,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bb7d1f0d3021d347a83e556fc4683dea2ea09d87bccdf88ff5c12545d89d5efb"
 dependencies = [
  "serde_derive",
-]
-
-[[package]]
-name = "serde-xml-rs"
-version = "0.5.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "65162e9059be2f6a3421ebbb4fef3e74b7d9e7c60c50a0e292c6239f19f1edfa"
-dependencies = [
- "log",
- "serde",
- "thiserror",
- "xml-rs",
 ]
 
 [[package]]
@@ -3480,12 +3506,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "wildmatch"
-version = "2.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ee583bdc5ff1cf9db20e9db5bb3ff4c3089a8f6b8b31aff265c9aba85812db86"
-
-[[package]]
 name = "winapi"
 version = "0.3.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3581,12 +3601,6 @@ checksum = "80d0f4e272c85def139476380b12f9ac60926689dd2e01d4923222f40580869d"
 dependencies = [
  "winapi",
 ]
-
-[[package]]
-name = "xml-rs"
-version = "0.8.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d2d7d3948613f75c98fd9328cfdcc45acc4d360655289d0a7d4ec931392200a3"
 
 [[package]]
 name = "zstd"
